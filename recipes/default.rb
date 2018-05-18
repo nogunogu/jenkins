@@ -4,21 +4,7 @@
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
-# sudo apt-get install software-properties-common
-package 'software-properties-common'
-
-# sudo add-apt-repository ppa:openjdk-r/ppa
-execute 'add-apt-repository ppa:openjdk-r/ppa' do
-  not_if { File.exist?('/etc/apt/sources.list.d/openjdk-r-ppa-trusty.list') }
-  notifies :run, 'execute[apt-get update]', :immediately
-end
-
-execute 'apt-get update' do
-  action :nothing
-end
-
-# sudo apt-get install openjdk-8-jre-headless
-package 'openjdk-8-jre-headless'
+include_recipe 'java'
 
 apt_repository 'jenkins' do
   uri          'http://pkg.jenkins-ci.org/debian'
